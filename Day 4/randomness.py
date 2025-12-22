@@ -1,10 +1,10 @@
 import random
-import my_module
+import my_module_randomness
 
 random_num = random.randint(1,10)
 print(random_num)
-print(my_module.my_favorite_number)
-sum_num = float(random_num) + my_module.my_favorite_number
+print(my_module_randomness.my_favorite_number)
+sum_num = float(random_num) + my_module_randomness.my_favorite_number
 
 print(sum_num)
 
