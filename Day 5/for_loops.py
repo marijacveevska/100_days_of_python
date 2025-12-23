@@ -1,3 +1,12 @@
+# For Loops
+# example 1
+# for item in list_of_items:
+    # Do something to each item
+# example 2
+# for number in range (a,b)
+    # Do something for the amount of numbers
+
+
 fruits = ["apple","pear","peach"]
 
 for fruit in fruits:
