@@ -31,10 +31,18 @@ print(f"{placeholder} \n")
 game_over = False
 
 correct_letters = []
+guessed_letters = set()
+
 lives = 6
 
 while not game_over:
     guess = input("Guess a letter:  ").lower()
+
+    if guess in guessed_letters:
+        print("You already said this letter\n")
+        continue
+
+    guessed_letters.add(guess)
 
     display=""
     for letter in chosen_word:
@@ -44,8 +52,9 @@ while not game_over:
             
         elif letter in correct_letters:
             display+= letter
+
         else:
-            display += "_"
+            display += "_" 
 
     print(f"{display} \n")
 
@@ -69,4 +78,3 @@ while not game_over:
         print(f"The chosen word is: {chosen_word} \n") 
 
 
-    
