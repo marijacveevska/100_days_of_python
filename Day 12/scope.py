@@ -10,6 +10,7 @@ def increase_enemies():
 increase_enemies()
 print(f"enemies outside function: {enemies}")
 
+
 # Local Scope : 
 def drink_potion1():
     potion_strength = 3
@@ -18,6 +19,7 @@ def drink_potion1():
 
 drink_potion1()
 # print(potion_strength) # NameError: name 'potion_strength' is not defined
+
 
 
 # Global Scope
