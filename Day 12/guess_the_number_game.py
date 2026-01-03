@@ -1,4 +1,5 @@
 import random
+from guess_the_number_art import guess_the_number_ASCII
 
 def guessing(g,c,l):
     diff = abs(g - c)
@@ -20,9 +21,9 @@ def guessing(g,c,l):
     
 
 
-
+print(guess_the_number_ASCII)
 print("Welcome to the Number Guessing Game!")
-print("I am Thinking of a number between 1 and 100.")
+print("I am thinking of a number between 1 and 100.")
 
 difficulty = input("Choose a difficulty. Type 'easy' or 'hard': ").lower()
 comp_number = random.randint(1,100)
@@ -45,5 +46,7 @@ else:
         
 
     if lives == 0 and guess != comp_number:
-        print(f"You lose! The correct number was {comp_number}")
+        print("Lost all your lives :(")
+        print("*** YOU LOSE! ***")
+        print(f"The correct number was {comp_number}")
     
