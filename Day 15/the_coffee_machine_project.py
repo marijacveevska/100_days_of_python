@@ -40,6 +40,11 @@ def resource_lowering(resources,menu_item,user_choice):
             for key in resources:
                 resources[key] -= item[key]
 
+def get_cost(menu_item, user_choice):
+    for item in menu_item:
+        if item["name"] == user_choice:
+            return item["cost"]
+
     
 Machine_ON = True
 
@@ -53,7 +58,8 @@ while Machine_ON:
     if user_choice in coffee_choices:
         has_resources = resource_check(resources,menu_item,user_choice)
         if has_resources == True:
-            print("Please insert coins.")
+            cost = get_cost(menu_item, user_choice)
+            print(f"Please insert coins: {cost}$")
             quarter = float(input("Quarters: "))
             dime = float(input("Dimes: "))
             nickel = float(input("Nickles: "))
@@ -63,6 +69,7 @@ while Machine_ON:
                 print(f"Sorry,that is not enough money: {calc_payment}")
             else:
                 print(f"Thank you for your purchase, here is your change: {round(calc_payment,2)}")
+                print(f"Your {user_choice} is ready for drinking.")
                 resource_lowering(resources,menu_item,user_choice)
 
         else:
