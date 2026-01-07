@@ -8,7 +8,7 @@ COIN_VALUES = {
     }
 
 resources = {
-    "water": 300,
+    "water": 400,
     "milk": 200,
     "coffee": 100,
     }
