@@ -1,31 +1,18 @@
 from turtle import Turtle
 
-STARTING_POSITIONS = [(-380, 0), (-380, -20), (-380, -40)]
-MOVE_DISTANCE = 20
-
-
 class Paddle(Turtle):
-    def __init__(self):
+    def __init__(self,position):
         super().__init__()
-        self.segments = []
-        self.create_paddle()
+        self.shape("square")
+        self.shapesize(5,1)
+        self.color("white")
+        self.penup()
+        self.goto(position)
 
-    def create_paddle(self):
-        for position in STARTING_POSITIONS:
-            self.add_segment(position)
+    def go_up(self):
+        new_y = self.ycor() + 20
+        self.goto(self.xcor(),new_y)
 
-    def add_segment(self, position):
-        segment = Turtle("square")
-        segment.color("white")
-        segment.penup()
-        segment.goto(position)
-        self.segments.append(segment)
-
-
-    def up(self):
-        if self.segments[0].heading() != 270:
-            self.segments[0].setheading(90)
-
-    def down(self):
-        if self.segments[0].heading() != 90:
-            self.segments[0].setheading(270)
+    def go_down(self):
+        new_y = self.ycor() - 20
+        self.goto(self.xcor(),new_y)
