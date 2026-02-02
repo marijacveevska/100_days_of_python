@@ -41,8 +41,4 @@ while len(guessed_states) < 50:
         t.goto(x,y)
         t.write(guess)
 
-    
-
-
-
-screen.exitonclick()
+#screen.exitonclick()
