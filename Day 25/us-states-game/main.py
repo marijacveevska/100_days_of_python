@@ -20,12 +20,14 @@ while len(guessed_states) < 50:
     guess = answer_state.title()
 
     if answer_state == "exit":
-        missing_states = []
-        for state in all_states:
-            if state not in guessed_states:
-                missing_states.append(state)
+        # missing_states = []
+        # for state in all_states:
+        #     if state not in guessed_states:
+        #         missing_states.append(state)
+       
+        missing_states = [state for state in all_states if state not in guessed_states]
         print(missing_states)
-
+        
         # export_data = pd.DataFrame(missing_states,columns=["states"])
         # export_data.to_csv("Day 25/us-states-game/states_to_learn.csv")
         break
