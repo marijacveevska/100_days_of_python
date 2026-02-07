@@ -1,3 +1,6 @@
+import random
+import pandas as pd
+
 # Dictionary Comprehension
 # new_dict = {new_key:new_value for (key,value) in dict.items() if test}
 
@@ -32,3 +35,5 @@ weather_f = {key:(temp_c * 9/5) + 32 for (key,temp_c) in weather_c.items()}
 
 print(weather_f)
 
+# Dictionary comperension with PANDAS DATA FRAME
+# new_dict = {new_key:new_value for (index,row) in df.iterrows() if test}

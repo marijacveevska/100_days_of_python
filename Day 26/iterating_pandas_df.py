@@ -16,3 +16,12 @@ for (key,value) in student_dict.items():
 # Data Frame
 student_df = pandas.DataFrame(student_dict)
 print(student_df)    
+
+# Loop through rows of a data frame
+
+for (index, row) in student_df.iterrows():
+    if row.student == "Angela":
+        print(row.score)
+
+    if index == 0:
+        print(row)
