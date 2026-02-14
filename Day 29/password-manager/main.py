@@ -4,13 +4,12 @@ from password_generator import generated_password
 
 BACKGROUND_COLOR = "#e9e7e1"
 
-
-
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
 def add_gen_password():
 
     entry_password.insert(0,generated_password)
+    
 # ---------------------------- SAVE DATA ------------------------------- #
 
 def add_to_file():
