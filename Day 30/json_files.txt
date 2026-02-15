@@ -1,0 +1,8 @@
+Write - make a json file
+json.dump()
+
+Read - takes the json file and turns it into a dictionary to be used in python code
+json.load()
+
+Update
+json.update()
