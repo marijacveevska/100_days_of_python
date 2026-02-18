@@ -30,20 +30,60 @@ def add_to_file():
     
     is_ok = messagebox.askokcancel(title=website,message=f"These are the details entered: \nEmail : {username} \nPassword : {password} \nIs it ok to save?")
 
+    # if is_ok:
+    #     try: 
+    #         with open("Day 30/password-manager-json/secret_file.json","r") as file:
+    #             #Reading old data
+    #             data = json.load(file)
+    #             #Updating old data with new data
+    #             data.update(new_data)
+    #         with open("Day 30/password-manager-json/secret_file.json","w") as file:   
+    #             #Saving updated data
+    #             json.dump(data,file,indent=4)
+    #     except FileNotFoundError:
+    #         with open("Day 30/password-manager-json/secret_file.json","w") as file:
+    #             json.dump(new_data,file,indent=4)
+
     if is_ok:
-        with open("Day 30/password-manager-json/secret_file.json","r") as file:
-            #Reading old data
-            data = json.load(file)
+        try: 
+            with open("Day 30/password-manager-json/secret_file.json","r") as file:
+                #Reading old data
+                data = json.load(file)
+        except FileNotFoundError:
+            with open("Day 30/password-manager-json/secret_file.json","w") as file:
+                json.dump(new_data,file,indent=4)
+        else:                
             #Updating old data with new data
             data.update(new_data)
-        with open("Day 30/password-manager-json/secret_file.json","w") as file:   
-            #Saving updated data
-            json.dump(data,file,indent=4)
+            with open("Day 30/password-manager-json/secret_file.json","w") as file:   
+                #Saving updated data
+                json.dump(data,file,indent=4)
+        
 
         entry_website.delete(0, tkinter.END)
         entry_password.delete(0, tkinter.END)
         entry_website.focus()
     
+
+# ---------------------------- SEARCH DATA ------------------------------- #
+
+def search_data():
+    website = entry_website.get()
+    try:
+        with open("Day 30/password-manager-json/secret_file.json","r") as file:
+            #Reading old data
+            data = json.load(file)
+    except FileNotFoundError:
+        messagebox.showinfo(title="Error",message="No Data file found")
+    else:    
+        if website in data:
+            email=data[website]["email"]
+            password=data[website]["password"]
+            messagebox.showinfo(title=website,message=f"Email: {email}\nPassword: {password}")
+        else:
+            messagebox.showinfo(title="Error",message=f"No details for {website} exist")
+
+
 # ---------------------------- UI SETUP ------------------------------- #
 
 window = tkinter.Tk()
@@ -56,11 +96,14 @@ canvas.create_image(100,100,image=logo_img)
 canvas.grid(column=1,row=0)
 
 #Buttons
-button_generate = tkinter.Button(text="Generate Password",bg=BACKGROUND_COLOR,highlightbackground=BACKGROUND_COLOR,highlightcolor=BACKGROUND_COLOR,command=add_gen_password)
+button_generate = tkinter.Button(text="Generate Password",width = 13,bg=BACKGROUND_COLOR,highlightbackground=BACKGROUND_COLOR,highlightcolor=BACKGROUND_COLOR,command=add_gen_password)
 button_generate.grid(column=2,row=3)
 
 button_add = tkinter.Button(text="Add",width=35,bg=BACKGROUND_COLOR,highlightbackground=BACKGROUND_COLOR,highlightcolor=BACKGROUND_COLOR,command=add_to_file)
 button_add.grid(column=1,row=4,columnspan=2)
+
+button_search = tkinter.Button(text="Search",width = 13,bg=BACKGROUND_COLOR,highlightbackground=BACKGROUND_COLOR,highlightcolor=BACKGROUND_COLOR,command = search_data)
+button_search.grid(column=2,row=1)
 
 #Labels
 label_web = tkinter.Label(text="Website: ",bg=BACKGROUND_COLOR,highlightcolor=BACKGROUND_COLOR)
@@ -73,8 +116,8 @@ label_pass = tkinter.Label(text="Password:",bg=BACKGROUND_COLOR,highlightcolor=B
 label_pass.grid(column=0,row=3)
 
 #Entries
-entry_website = tkinter.Entry(width=37,bg="#fffefc",highlightbackground=BACKGROUND_COLOR,highlightcolor=BACKGROUND_COLOR)
-entry_website.grid(column=1,row=1,columnspan=2)
+entry_website = tkinter.Entry(width=19,bg="#fffefc",highlightbackground=BACKGROUND_COLOR,highlightcolor=BACKGROUND_COLOR)
+entry_website.grid(column=1,row=1)
 entry_website.focus()
 
 entry_username = tkinter.Entry(width=37,bg="#fffefc",highlightbackground=BACKGROUND_COLOR,highlightcolor=BACKGROUND_COLOR)
