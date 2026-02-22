@@ -1,0 +1,7 @@
+The flash card app is made for me to practice my Dutch language.
+To reach an A2 (elementary) level in Dutch, you generally need to learn between 1,000 and 2,500 words.
+How this app works is the following:
+1. Dutch word appears on the screen and after 5 second the english word is shown.
+If you don't know the word you click x and that word is added in the words to learn file that you can review in order to learn the words.
+If you know the word you click ✔ and it will just continue with the next chosen random word. 
+    (if that word was previously in the words to learn file it will now be removed since you said you know the word)
