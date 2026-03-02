@@ -6,32 +6,37 @@ import random
 MY_EMAIL = "m-sender@gmail.com"
 PASSWORD = "abcd1234()"
 
-data_path_1 = "Day 32/birthday_wisher/birthdays.csv"
-data_path_2 = "Day 32/birthday_wisher/letter_templates/letter_1.txt"
+data_path_1 = "Day 32/birthday-wisher/birthdays.csv"
+data_path_2 = "Day 32/birthday-wisher/letter_templates/letter_1.txt"
 
 # Read the starting letter
-with open(data_path_2) as letter:
-    letter_template = letter.read()
+with open(data_path_2,"r") as letter:
+    letter.read()
 
 df = pd.read_csv(data_path_1)
+birthdays_dict = {
+    (int(row["month"]), int(row["day"])): row
+    for (index, row) in df.iterrows()
+}
+print(birthdays_dict)
 
 
 now = dt.datetime.now()
 day = now.weekday()
 
 
-if day == 5:
-    with open (data_path_1,"r") as file:
-        quotes = file.readlines()
-        random_quote = random.choice(quotes)
+# if day == 5:
+#     with open (data_path_1,"r") as file:
+#         quotes = file.readlines()
+#         random_quote = random.choice(quotes)
     
-    print(random_quote)
+#     print(random_quote)
 
-    with smtplib.SMTP("smtp.gmail.com") as connection:
-        connection.starttls()
-        connection.login(MY_EMAIL,PASSWORD)
-        connection.sendmail(from_addr=MY_EMAIL, to_addrs=MY_EMAIL, 
-                            msg=f"Subject:Monday Motivation\n\n {random_quote}")
+#     with smtplib.SMTP("smtp.gmail.com") as connection:
+#         connection.starttls()
+#         connection.login(MY_EMAIL,PASSWORD)
+#         connection.sendmail(from_addr=MY_EMAIL, to_addrs=MY_EMAIL, 
+#                             msg=f"Subject:Monday Motivation\n\n {random_quote}")
 
 
 ##################### Starting Project Hints and TODOs ######################
