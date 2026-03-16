@@ -1,5 +1,10 @@
 from data import OWM_Endpoint,api_key
 import requests
+import smtplib
+import os
+
+MY_EMAIL = "m-sender@gmail.com"
+PASSWORD = os.environ["EMAIL_PASSWORD"]
 
 weather_parameters = {"lat":52.370216,"lon":4.895168,"appid":api_key,"cnt":4}
 response = requests.get(url=OWM_Endpoint,params=weather_parameters)
@@ -16,6 +21,8 @@ for hour_data in data_results:
 
 
 if will_rain:
-    print("Bring and umbrella")
-else:
-    print("All good today")
+    with smtplib.SMTP("smtp.gmail.com") as connection:
+            connection.starttls()
+            connection.login(MY_EMAIL,PASSWORD)
+            connection.sendmail(from_addr=MY_EMAIL, to_addrs=MY_EMAIL, 
+                                msg=f"Subject:Weather forecast\n\n It is going to rain today. Remember to bring and umbrella ☔️")
