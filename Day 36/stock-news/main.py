@@ -14,14 +14,24 @@ stock_parameters= {"function":"TIME_SERIES_DAILY","symbol":STOCK_NAME,"apikey":a
 
 response = requests.get(url=STOCK_ENDPOINT,params=stock_parameters)
 response.raise_for_status()
-data_results = response.json()
-print(data_results)
+data_results = response.json()["Time Series (Daily)"]
 
 #TODO 1. - Get yesterday's closing stock price. Hint: You can perform list comprehensions on Python dictionaries. e.g. [new_value for (key, value) in dictionary.items()]
-
+#[new_value for (key, value) in dictionary.items()]
 #TODO 2. - Get the day before yesterday's closing stock price
 
+new_list = [value for (key,value) in data_results.items()]
+
+yesterday = new_list[0]["4. close"]
+day_before_yesterday = new_list[1]["4. close"]
+
+print(f"yesterday's closing price: {yesterday}")
+print(f"day before yesterday's closing price: {day_before_yesterday}")
+
 #TODO 3. - Find the positive difference between 1 and 2. e.g. 40 - 20 = -20, but the positive difference is 20. Hint: https://www.w3schools.com/python/ref_func_abs.asp
+
+difference = abs(float(yesterday) - float(day_before_yesterday))
+print(difference)
 
 #TODO 4. - Work out the percentage difference in price between closing price yesterday and closing price the day before yesterday.
 
