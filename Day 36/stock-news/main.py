@@ -40,7 +40,13 @@ print(f"{round(percentage_change,2)}%")
 
 #TODO 5. - If TODO4 percentage is greater than 5 then print("Get News").
 
+## STEP 2: https://newsapi.org/ 
+# Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME. 
+
 if percentage_change > 3:
+    #TODO 6. - Instead of printing ("Get News"), use the News API to get articles related to the COMPANY_NAME.
+    #TODO 7. - Use Python slice operator to create a list that contains the first 3 articles. Hint: https://stackoverflow.com/questions/509211/understanding-slice-notation
+
     news_parameters = {"apiKey":api_key_news, "qInTitle":COMPANY_NAME}
     news_response = requests.get(url=NEWS_ENDPOINT,params=news_parameters)
     news_response.raise_for_status()
@@ -50,22 +56,12 @@ if percentage_change > 3:
     print(top_articles)
 
 
-## STEP 2: https://newsapi.org/ 
-# Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME. 
-
-#TODO 6. - Instead of printing ("Get News"), use the News API to get articles related to the COMPANY_NAME.
-
-#TODO 7. - Use Python slice operator to create a list that contains the first 3 articles. Hint: https://stackoverflow.com/questions/509211/understanding-slice-notation
-
-
 ## STEP 3: Use twilio.com/docs/sms/quickstart/python
-#to send a separate message with each article's title and description to your phone number. 
+#to send a separate message with each article's title and description to your phone number. OR EMAIL
 
 #TODO 8. - Create a new list of the first 3 article's headline and description using list comprehension.
 
 #TODO 9. - Send each article as a separate message via Twilio. 
-
-
 
 #Optional TODO: Format the message like this: 
 """
