@@ -1,6 +1,14 @@
+import os
+import smtplib
 import requests
 import smtplib
 from data import api_key,api_key_news
+
+# GOAL: Use https://www.alphavantage.co/documentation/#daily and when stock price increase/decreases by 5% between yesterday 
+# and the day before yesterday get the top 3 articles from the newsapi.org and email the articles to yourself.
+
+MY_EMAIL = "m-sender@gmail.com"
+PASSWORD = os.environ["EMAIL_PASSWORD"]
 
 STOCK_NAME = "TSLA"
 COMPANY_NAME = "Tesla Inc"
@@ -8,8 +16,7 @@ COMPANY_NAME = "Tesla Inc"
 STOCK_ENDPOINT = "https://www.alphavantage.co/query"
 NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
 
-## STEP 1: Use https://www.alphavantage.co/documentation/#daily
-# When stock price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
+
 stock_parameters= {"function":"TIME_SERIES_DAILY","symbol":STOCK_NAME,"apikey":api_key, "outputsize":"compact"}
 
 response = requests.get(url=STOCK_ENDPOINT,params=stock_parameters)
@@ -17,13 +24,12 @@ response.raise_for_status()
 data_results = response.json()["Time Series (Daily)"]
 
 #TODO 1. - Get yesterday's closing stock price. Hint: You can perform list comprehensions on Python dictionaries. e.g. [new_value for (key, value) in dictionary.items()]
-#[new_value for (key, value) in dictionary.items()]
 #TODO 2. - Get the day before yesterday's closing stock price
 
 new_list = [value for (key,value) in data_results.items()]
 
-yesterday = new_list[0]["4. close"]
-day_before_yesterday = new_list[1]["4. close"]
+yesterday = new_list[2]["4. close"]
+day_before_yesterday = new_list[3]["4. close"]
 
 print(f"yesterday's closing price: {yesterday}")
 print(f"day before yesterday's closing price: {day_before_yesterday}")
@@ -40,12 +46,10 @@ print(f"{round(percentage_change,2)}%")
 
 #TODO 5. - If TODO4 percentage is greater than 5 then print("Get News").
 
-## STEP 2: https://newsapi.org/ 
-# Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME. 
-
 if percentage_change > 3:
     #TODO 6. - Instead of printing ("Get News"), use the News API to get articles related to the COMPANY_NAME.
     #TODO 7. - Use Python slice operator to create a list that contains the first 3 articles. Hint: https://stackoverflow.com/questions/509211/understanding-slice-notation
+    #TODO 8. - Send each article as a separate email.
 
     news_parameters = {"apiKey":api_key_news, "qInTitle":COMPANY_NAME}
     news_response = requests.get(url=NEWS_ENDPOINT,params=news_parameters)
@@ -55,13 +59,19 @@ if percentage_change > 3:
     top_articles = articles[:3]
     print(top_articles)
 
+    for articles in top_articles:
+        titles = articles["title"]
+        contents = articles["content"]
 
-## STEP 3: Use twilio.com/docs/sms/quickstart/python
-#to send a separate message with each article's title and description to your phone number. OR EMAIL
+        print(f"{titles} & {contents}")
 
-#TODO 8. - Create a new list of the first 3 article's headline and description using list comprehension.
+        with smtplib.SMTP("smtp.gmail.com") as connection:
+                connection.starttls()
+                connection.login(MY_EMAIL,PASSWORD)
+                connection.sendmail(from_addr=MY_EMAIL, to_addrs=MY_EMAIL, 
+                                    msg=f"Subject:{titles}\n\n {contents}")
 
-#TODO 9. - Send each article as a separate message via Twilio. 
+
 
 #Optional TODO: Format the message like this: 
 """
