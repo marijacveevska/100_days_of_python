@@ -1,12 +1,10 @@
-from data import API_KEY, API_ID, AGE,GENDER,WEIGHT_KG,HEIGHT_CM
+from data import API_KEY, API_ID, AGE,GENDER,WEIGHT_KG,HEIGHT_CM,nutrition_endpoint,nutrition_url
 import requests
 from datetime import datetime
 
+nutrition_url = nutrition_url
 
-
-nutrition_url = "https://app.100daysofpython.dev"
-
-nutrition_endpoint = f"{nutrition_url}/v1/nutrition/natural/exercise"
+nutrition_endpoint = nutrition_endpoint
 
 nutri_parameters = { 
     "query":"walked for 1 hour",
