@@ -18,4 +18,3 @@ for row in sheet_data:
         row["iataCode"] = "TESTING"
 
 print(sheet_data)
-#requests.post()
