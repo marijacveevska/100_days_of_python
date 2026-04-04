@@ -3,7 +3,7 @@ from data_manager import DataManager
 from flight_data import FlightData
 from flight_search import FlightSearch
 from notification_manager import NotificationManager
-from data import API_GET, API_POST, API_PUT
+from data import API_GET, API_PUT
 import requests
 
 endpoint = API_GET
@@ -17,4 +17,14 @@ for row in sheet_data:
     if row["iataCode"] == "":
         row["iataCode"] = "TESTING"
 
-print(sheet_data)
+for row in sheet_data:
+    new_data = {
+        "price": {
+            "iataCode": row["iataCode"]
+        }
+    }
+
+    put_endpoint = f"{API_PUT}/{row['id']}"
+
+    response = requests.put(url=put_endpoint, json=new_data)
+    print(response.text)
